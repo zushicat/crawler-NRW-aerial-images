@@ -1,9 +1,28 @@
 # crawler-aerial-images
-Crawl arial images (published by Bezirksregierung NRW) of a selected city in North Rhine-Westphalia and save those images on the fly with reduced resolution.     
+Crawl aerial images (published by Bezirksregierung NRW) of a selected city in North Rhine-Westphalia and save those images on the fly with reduced resolution.     
 
 The original images have a tremendously high resolution (10cm per pixel resp. 10000x10000 pixel), which is far too high for many computer vision applications (i.e. object detection with machine learning techniques).    
 Hence this little crawler to automatically create instantly useable imagesets.    
 
+
+### Usage
+Install python environment
+```
+$ pipenv install
+```
+and change into shell
+```
+$ pipenv shell
+```
+You can exit the shell with
+```
+$ exit
+```
+Then change into /src and call the main script
+```
+$ cd src
+$ python get_images.py
+```
 
 
 ### About original data
