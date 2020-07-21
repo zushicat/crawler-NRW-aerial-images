@@ -11,4 +11,4 @@ The following columns are available in this reducced dataset:
 
 
 **Note**    
-All of the images have a value of 10000 both for Anzahl_Spalten and Anzahl_Zeilen, which equals a 10000 x 10000 pixel resolution.
+All of the images have a value of 10000 both for Anzahl_Spalten and Anzahl_Zeilen (in the original dataset), which equals a 10000 x 10000 pixel resolution for each image.
