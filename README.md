@@ -1,7 +1,7 @@
 # crawler-aerial-images
 Crawl arial images (published by Bezirksregierung NRW) of a selected city in North Rhine-Westphalia and save those images on the fly with reduced resolution.     
 
-The original images have a tremendously high resolution (10cm per pixel), which is far too high for many computer vision applications (i.e. object detection with machine learning techniques).    
+The original images have a tremendously high resolution (10cm per pixel resp. 10000x10000 pixel), which is far too high for many computer vision applications (i.e. object detection with machine learning techniques).    
 Hence this little crawler to automatically create instantly useable imagesets.    
 
 
