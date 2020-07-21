@@ -20,4 +20,4 @@ There are different bundles available:
 The lookup table (resp. data description per image file) can be found here (zipped .csv):    
 [Metadaten zum Datensatz](https://www.geoportal.nrw/suche?lang=de&searchTerm=56fb584b-10cf-4009-a405-0bef06bb3e00)
 
-
+The reduced version of the lookup table and a short documentation can be found here [image_lookup_table.csv](https://github.com/zushicat/crawler-NRW-arial-images/tree/master/data/meta).
