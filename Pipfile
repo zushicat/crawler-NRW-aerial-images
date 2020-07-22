@@ -7,8 +7,9 @@ verify_ssl = true
 
 [packages]
 click = "*"
+Glymur = "*"
 numpy = "*"
-opencv-python = "*"
+opencv-contrib-python = "*"
 pandas = "*"
 requests = "*"
 

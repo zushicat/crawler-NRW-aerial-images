@@ -1,0 +1,1 @@
+Direcotry for resized tile images. The images are stored in a subdirectory created from minicipal name (passed by parameter on script call).

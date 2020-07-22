@@ -7,10 +7,10 @@ import pandas as pd
 
 @click.command()
 @click.option('--municipal', default="Köln", help="NRW municipal / city (Default: \"Köln\")")
-@click.option('--resolution', default=1000,  help="Height and width pixel resolution (Default: 1000)")
+@click.option('--resolution', default=500,  help="Height and width pixel resolution (Default: 500)")
 def request_images(municipal, resolution) -> None:
     df_lookup_table: pd.DataFrame = get_city_data_lookup_table(municipal)
-    crawl_municipal_images(df_lookup_table)
+    crawl_municipal_images(municipal, df_lookup_table, resolution)
 
 
 if __name__ == "__main__":
