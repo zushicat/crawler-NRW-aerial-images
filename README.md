@@ -1,5 +1,5 @@
 # crawler-aerial-images
-Crawl aerial images (published by Bezirksregierung NRW) of a selected city in North Rhine-Westphalia and save those images on the fly with reduced resolution.     
+Crawl aerial images (published by Bezirksregierung NRW) of a selected city in North Rhine-Westphalia and save tiles of those images on the fly with reduced resolution.     
 
 The original images have a tremendously high resolution (10cm per pixel resp. 10000x10000 pixel), which is far too high for many computer vision applications (i.e. object detection with machine learning techniques).    
 Hence this little crawler to automatically create instantly useable imagesets.    
@@ -29,6 +29,9 @@ This is the default call
 $ python get_images.py --municipal Köln --resolution 500     
 ```
 The --municipal parameter checks for substrings in the column "Bildflugnummer" in the [image_lookup_table.csv](https://github.com/zushicat/crawler-NRW-arial-images/tree/master/data/meta).    
+
+The tiles are saved in /exports under a directory named as the passed municipal. The naming convention is    
+x1_y1_x2_y2.png (i.e. 353000_5641000_353500_5641500.png)    
 
 **Note**    
 The covered area which falls under one "Bildflugnummer" is way bigger than you might be interested in. Right now (for my own purpose), I manually implemented a bounding box if municipal equals "Köln" to restrict incoming images.     
