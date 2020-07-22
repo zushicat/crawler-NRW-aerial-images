@@ -24,7 +24,7 @@ $ cd src
 $ python get_images.py
 ```
 
-This is the default call
+The default call requests "Köln" with a resolution of 500 (pixel width/height). You can specify these parameter:
 ```
 $ python get_images.py --municipal Köln --resolution 500     
 ```
