@@ -24,6 +24,16 @@ $ cd src
 $ python get_images.py
 ```
 
+This is the default call
+```
+$ python get_images.py --municipal Köln --resolution 500     
+```
+The --municipal parameter checks for substrings in the column "Bildflugnummer" in the [image_lookup_table.csv](https://github.com/zushicat/crawler-NRW-arial-images/tree/master/data/meta).    
+
+**Note**    
+The covered area which falls under one "Bildflugnummer" is way bigger than you might be interested in. Right now (for my own purpose), I manually implemented a bounding box if municipal equals "Köln" to restrict incoming images.     
+Please have a look at [_image_crawler.py](https://github.com/zushicat/crawler-NRW-aerial-images/blob/master/src/_image_crawler.py) to change / addapt these values (see: global variable BOUNDING_BOX_COLOGNE_CITY and function crawl_municipal_images)
+
 
 ### About original data
 For the official product description of the image sets, please refer to the page [Digitale Orthophotos](https://www.bezreg-koeln.nrw.de/brk_internet/geobasis/luftbildinformationen/aktuell/digitale_orthophotos/index.html) by Bezirksregierung NRW.    
