@@ -41,13 +41,13 @@ def _split_into_subimages(municipal: str, image_file_name: str, coord_x: int, co
     image = cv2.imread(f"{TMP_IMAGE_PATH}/{image_file_name}.png")
     
     tmp_image = image
-
     height, width = image.shape[:2]
 
-    # value of top left point
-    add_to_coord = 100
+    # move origin value of top left point
     coord_x = coord_x
-    coord_y = coord_y + add_to_coord
+    coord_y = coord_y + 1000
+
+    add_to_coord = 100
 
     CROP_W_SIZE = 10 # Number of pieces Horizontally 
     CROP_H_SIZE = 10 # Number of pieces Vertically to each Horizontal  
@@ -62,7 +62,7 @@ def _split_into_subimages(municipal: str, image_file_name: str, coord_x: int, co
             w = int(width / CROP_W_SIZE)
 
             new_coord_x = coord_x + i * add_to_coord
-            new_coord_y = coord_y - j * add_to_coord
+            new_coord_y = coord_y - (j+1) * add_to_coord
 
             new_file_name = f"{new_coord_x}_{new_coord_y}_{new_coord_x + add_to_coord}_{new_coord_y + add_to_coord}"
             
@@ -136,6 +136,7 @@ def crawl_municipal_images(municipal: str, df_lookup_table: pd.DataFrame, resolu
             x: int = row["Koordinatenursprung_East"]
             y: int = row["Koordinatenursprung_North"]
 
+            
             # tmp: Cologne (inner) city specific bounding box
             # BOUNDING_BOX_COLOGNE_CITY = (352568, 5640781, 360564, 5648837) -> # 64 images (out of 1092)
             if municipal == "Köln":
@@ -153,6 +154,6 @@ def crawl_municipal_images(municipal: str, df_lookup_table: pd.DataFrame, resolu
             
             print("---")
         except Exception as e:
-            print(f"Error at {index}: {file_name} - {e}")
+            pass  # print(f"Error at {index}: {file_name} - {e}")
 
         
