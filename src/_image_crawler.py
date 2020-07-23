@@ -147,13 +147,12 @@ def crawl_municipal_images(municipal: str, df_lookup_table: pd.DataFrame, resolu
             print(i, file_name, x, y)
             i += 1
             
-            # _crawl_images_data(file_name)
-            # _save_rgb_image(file_name)
+            _crawl_images_data(file_name)
+            _save_rgb_image(file_name)
             _split_into_subimages(municipal, file_name, x, y, resolution)
             
             print("---")
         except Exception as e:
             print(f"Error at {index}: {file_name} - {e}")
 
-        if i == 1:
-            break
+        
