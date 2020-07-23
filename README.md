@@ -31,7 +31,7 @@ $ python get_images.py --municipal Köln --resolution 500
 The --municipal parameter checks for substrings in the column "Bildflugnummer" in the [image_lookup_table.csv](https://github.com/zushicat/crawler-NRW-arial-images/tree/master/data/meta).    
 
 
-Each image will coverted into RGB and cut into 4 tiles (respective half width and height). Each tile will be reduced to the passed resolution.    
+Each 10000 x 10000 pixel image will coverted into RGB and cut into 100 tiles. Each tile will then be reduced to the passed resolution.    
 
 The tiles are saved in /exports under a directory named as the passed municipal. The naming convention is    
 x1_y1_x2_y2.png (i.e. 353000_5641000_353500_5641500.png)    

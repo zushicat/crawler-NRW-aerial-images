@@ -34,29 +34,38 @@ def _resize_image(image: np.array, resolution: int) -> np.ndarray:
 
 
 def _split_into_subimages(municipal: str, image_file_name: str, coord_x: int, coord_y: int, resolution: int) -> None:
+    '''
+    https://stackoverflow.com/a/53388729
+    '''
     print("split into tiles...")
     image = cv2.imread(f"{TMP_IMAGE_PATH}/{image_file_name}.png")
     
     tmp_image = image
 
     height, width = image.shape[:2]
-    
-    CROP_W_SIZE  = 2  # Number of pieces Horizontally 
-    CROP_H_SIZE = 2 # Number of pieces Vertically to each Horizontal  
 
-    for i in range(CROP_H_SIZE):
-        for j in range(CROP_W_SIZE):
+    # value of top left point
+    add_to_coord = 100
+    coord_x = coord_x
+    coord_y = coord_y + add_to_coord
 
-            x = int(width / CROP_W_SIZE * i )
+    CROP_W_SIZE = 10 # Number of pieces Horizontally 
+    CROP_H_SIZE = 10 # Number of pieces Vertically to each Horizontal  
+
+    for i in range(CROP_W_SIZE):
+        for j in range(CROP_H_SIZE):
+
+            x = int(width / CROP_W_SIZE * i)
             y = int(height / CROP_H_SIZE * j)
 
             h = int(height / CROP_H_SIZE)
             w = int(width / CROP_W_SIZE)
 
-            new_coord_x = coord_x + j * 500
-            new_coord_y = coord_y + i * 500
-            new_file_name = f"{new_coord_x}_{new_coord_y}_{new_coord_x + 500}_{new_coord_y+500}"
+            new_coord_x = coord_x + i * add_to_coord
+            new_coord_y = coord_y - j * add_to_coord
 
+            new_file_name = f"{new_coord_x}_{new_coord_y}_{new_coord_x + add_to_coord}_{new_coord_y + add_to_coord}"
+            
             tmp_image = tmp_image[y:y+h, x:x+w]
             tmp_image = _resize_image(tmp_image, resolution)
             
@@ -120,6 +129,7 @@ def crawl_municipal_images(municipal: str, df_lookup_table: pd.DataFrame, resolu
     '''
     _create_dir_for_processed_images(municipal)
 
+    i = 0
     for index, row in df_lookup_table.iterrows():
         try:
             file_name: str = row["Kachelname"]
@@ -134,12 +144,16 @@ def crawl_municipal_images(municipal: str, df_lookup_table: pd.DataFrame, resolu
                 if y < BOUNDING_BOX_COLOGNE_CITY[1] or y > BOUNDING_BOX_COLOGNE_CITY[3]:
                     continue
 
-            print(index, file_name)
+            print(i, file_name, x, y)
+            i += 1
             
-            _crawl_images_data(file_name)
-            _save_rgb_image(file_name)
+            # _crawl_images_data(file_name)
+            # _save_rgb_image(file_name)
             _split_into_subimages(municipal, file_name, x, y, resolution)
             
             print("---")
         except Exception as e:
             print(f"Error at {index}: {file_name} - {e}")
+
+        if i == 1:
+            break
