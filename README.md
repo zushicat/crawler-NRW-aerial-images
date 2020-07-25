@@ -24,9 +24,9 @@ $ cd src
 $ python get_images.py
 ```
 
-The default call requests "Köln" with a resolution of 500 (pixel width/height). You can specify these parameter:
+The default call requests "Köln" with a resolution of 400 (pixel width/height). You can specify these parameter:
 ```
-$ python get_images.py --municipal Köln --resolution 500     
+$ python get_images.py --municipal Köln --resolution 400     
 ```
 The --municipal parameter checks for substrings in the column "Bildflugnummer" in the [image_lookup_table.csv](https://github.com/zushicat/crawler-NRW-arial-images/tree/master/data/meta).    
 
