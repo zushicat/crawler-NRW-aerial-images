@@ -1,8 +1,28 @@
 # crawler-aerial-images
-Crawl aerial images (published by Bezirksregierung NRW) of a selected city in North Rhine-Westphalia and save tiles of those images on the fly with reduced resolution.     
+Crawl aerial images (published by Bezirksregierung NRW) of a selected areas in North Rhine-Westphalia and save tiles of those images on the fly with reduced resolution.     
 
-The original images have a tremendously high resolution (10cm per pixel resp. 10000x10000 pixel), which is far too high for many computer vision applications (i.e. object detection with machine learning techniques).    
-Hence this little crawler to automatically create instantly useable imagesets.    
+
+### Update
+Use the wms Service by selecting a bounding box of an area to request. This area will be divided into 100 x 100 meter tiles.
+The file naming has following pattern:
+```
+<xmin>_<ymin>_<xmax>_<ymax>.png
+```
+Example for an area within the inner city of Cologne, Germany:
+```
+get_wms_images.py --xmin 353900 --ymin 5642000 --xmax 357400 --ymax 5647000 --name 2020_1 --resolution 400 --layer 2020
+```
+Use the parameters as followed:
+- xmin, ymin, xmax, ymax: the x,y values of the bounding box of 
+- name: the name of the directory where the tile images are stored
+- resolution: the resolution of the tiles
+- layer 2020
+
+You can also choose between current and historical images, where 2020 requests the current images and all other values request the layers of the wms service for historical images.
+
+See: 
+- Overview service: https://www.bezreg-koeln.nrw.de/brk_internet/geobasis/webdienste/geodatendienste/ (under: Luftbildinformationen)
+- Usage wms: https://www.bezreg-koeln.nrw.de/brk_internet/geobasis/webdienste/anleitung_capabilities.pdf
 
 
 ### Usage
@@ -18,11 +38,21 @@ You can exit the shell with
 ```
 $ exit
 ```
-Then change into /src and call the main script
+Then change into /src and request a) the webservice
 ```
 $ cd src
 $ python get_images.py
 ```
+or b) the wms Service **recommended**
+```
+$ cd src
+$ python get_wms_images.py --xmin 353900 --ymin 5642000 --xmax 357400 --ymax 5647000 --name 2020_1 --layer 2020
+```
+
+
+### If you want to use the webservice 
+The original images have a tremendously high resolution (10cm per pixel resp. 10000x10000 pixel), which is far too high for many computer vision applications (i.e. object detection with machine learning techniques).    
+Hence this little crawler to automatically create instantly useable imagesets.   
 
 The default call requests "Köln" with a resolution of 400 (pixel width/height). You can specify these parameter:
 ```
