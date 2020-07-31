@@ -1,1 +1,1 @@
-Direcotry for resized tile images. The images are stored in a subdirectory created from minicipal name (passed by parameter on script call).
+Direcotry for resized tile images. The images are stored in a subdirectory created from minicipal name (passed by parameter on get_images.py script call) **or** by x/y min/max georeference bounding box (passed by parameter on get_wms_images.py script call).
