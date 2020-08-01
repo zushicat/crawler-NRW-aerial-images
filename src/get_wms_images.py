@@ -58,15 +58,14 @@ def _create_tile_bounds(xmin: int, ymin: int, xmax: int, ymax: int) -> List[int]
     Devide the area into <steps> x <steps> m tiles and return upper left / lower right bounding box x,y of each tile
     '''
     step = 100  # 100 meter
-    new_xmin = xmin  # i.e. 353900 -> 357400
-    new_ymin = ymin  # i.e. 564200 -> 564700
-
     tiles_bounding_boxes: List[int] = []
+    new_xmin = xmin  # i.e. 353900 -> 357400
 
     while (new_xmin+step) < xmax:  
         current_xmin = new_xmin
         new_xmin = new_xmin+step
         
+        new_ymin = ymin  # i.e. 564200 -> 564700new_ymin = ymin  # i.e. 564200 -> 564700
         while (new_ymin+step) < ymax:  
             current_ymin = new_ymin
             new_ymin = new_ymin+step
