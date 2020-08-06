@@ -38,26 +38,6 @@ def _show_image(image: np.array) -> None:
     cv2.destroyAllWindows()
 
 
-def _resize_image(image: np.array, resolution: int) -> np.ndarray:
-    dim = (resolution, resolution)
-    image = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
-    
-    return image
-
-
-def _enhance_image(image: np.array) -> np.array:
-    image = cv2.detailEnhance(image, sigma_s=4, sigma_r=0.2)
-    
-    alpha = 1.1 # Contrast control (1.0-3.0)
-    beta = 1 # Brightness control (0-100)
-    image = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)   
-
-    # image = cv2.bilateralFilter(image, 1, 15, 15)
-    # image = cv2.blur(image, (1, 1))
-
-    return image
-
-
 def _request_wms(bounding_box: List[int], resolution: int, layer_year: str, collection_name: str) -> None:
     '''
     Choose wms by layer_year: 2020 is current, everthing else is historic
@@ -71,23 +51,14 @@ def _request_wms(bounding_box: List[int], resolution: int, layer_year: str, coll
     
     enhance_image = False
     if layer_year == "2020":  # wms for current images
-        # url = f"https://www.wms.nrw.de/geobasis/wms_nw_dop?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image/png&LAYERS=nw_dop_rgb&STYLES=&CRS=EPSG:25832&WIDTH={resolution}&HEIGHT={resolution}&BBOX={xmin},{ymin},{xmax},{ymax}"
-        url = f"https://www.wms.nrw.de/geobasis/wms_nw_dop?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image/png&LAYERS=nw_dop_rgb&STYLES=&CRS=EPSG:25832&WIDTH=300&HEIGHT=300&BBOX={xmin},{ymin},{xmax},{ymax}"
+        url = f"https://www.wms.nrw.de/geobasis/wms_nw_dop?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image/png&LAYERS=nw_dop_rgb&STYLES=&CRS=EPSG:25832&WIDTH={resolution}&HEIGHT={resolution}&BBOX={xmin},{ymin},{xmax},{ymax}"
     else:  # wms for historic images; choose layer with layer_year 
-        # url = f"https://www.wms.nrw.de/geobasis/wms_nw_hist_dop?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image/png&LAYERS=nw_hist_dop_{layer_year}&STYLES=&CRS=EPSG:25832&WIDTH={resolution}&HEIGHT={resolution}&BBOX={xmin},{ymin},{xmax},{ymax}"
-        url = f"https://www.wms.nrw.de/geobasis/wms_nw_hist_dop?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image/png&LAYERS=nw_hist_dop_{layer_year}&STYLES=&CRS=EPSG:25832&WIDTH=1000&HEIGHT=1000&BBOX={xmin},{ymin},{xmax},{ymax}"
-        enhance_image = True
+        url = f"https://www.wms.nrw.de/geobasis/wms_nw_hist_dop?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image/png&LAYERS=nw_hist_dop_{layer_year}&STYLES=&CRS=EPSG:25832&WIDTH={resolution}&HEIGHT={resolution}&BBOX={xmin},{ymin},{xmax},{ymax}"
 
     r = requests.get(url, stream=True)
     if r.status_code == 200:
         image = np.asarray(bytearray(r.raw.read()), dtype="uint8")
         image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-        
-        if enhance_image is True:
-            image = _enhance_image(image)
-        
-        image = _resize_image(image, resolution)
-        #_show_image(image) 
         cv2.imwrite(f"{BASE_URL}/{collection_name}/{file_name}", image)
 
 
