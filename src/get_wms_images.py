@@ -70,12 +70,12 @@ def _create_tile_bounds(xmin: int, ymin: int, xmax: int, ymax: int) -> List[int]
     tiles_bounding_boxes: List[int] = []
     new_xmin = xmin  # i.e. 353900 -> 357400
 
-    while (new_xmin+step) < xmax:  
+    while (new_xmin+step) < xmax + step:  
         current_xmin = new_xmin
         new_xmin = new_xmin+step
         
         new_ymin = ymin  # i.e. 564200 -> 564700new_ymin = ymin  # i.e. 564200 -> 564700
-        while (new_ymin+step) < ymax:  
+        while (new_ymin+step) < ymax + step:  
             current_ymin = new_ymin
             new_ymin = new_ymin+step
             tiles_bounding_boxes.append([current_xmin, current_ymin, new_xmin, new_ymin])
@@ -101,6 +101,7 @@ def request_images(xmin, ymin, xmax, ymax, resolution, name, layer) -> None:
     '''
     Area of interest:
     get_wms_images.py --xmin 353900 --ymin 5642000 --xmax 357400 --ymax 5647000 --name 2020_1 --layer 2020
+    get_wms_images.py --xmin 354870 --ymin 5645440 --xmax 355220 --ymax 5645880 --name 2020_stadtgarten --layer 2020
     '''
     try:
         # print(xmin, ymin, xmax, ymax, name, resolution, layer)
