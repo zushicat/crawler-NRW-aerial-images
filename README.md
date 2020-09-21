@@ -3,7 +3,7 @@ Crawl aerial images (published by Bezirksregierung NRW) of a selected areas in N
 
 
 ### Update
-Use the wms service by selecting a bounding box of an area to request (**recommendet**). This area will be divided into 100 x 100 meter tiles and saved into a (by parameter) defined directory.
+Use the wms service by selecting a bounding box of an area to request (**recommended**). This area will be divided into 100 x 100 meter tiles and saved into a (by parameter) defined directory.
 The file naming has following pattern:
 ```
 <xmin>_<ymin>_<xmax>_<ymax>.png
